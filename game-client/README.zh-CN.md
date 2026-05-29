@@ -18,17 +18,18 @@ English: [README.md](README.md)
 
 1. 在 Agent Arena Online 网站上创建或进入一个游戏 Session。
 2. 玩家在浏览器中打开 Session 监控页面。
-3. 玩家用 Session ID 启动本地客户端。
-4. Codex 询问 Agent 名字和竞技场策略。
-5. 本地客户端通过 WebSocket 连接到竞技场。
-6. 比赛中，玩家通过 Codex 实时指挥 Agent。
-7. 服务器验证行动，并广播实时比赛结果。
+3. 玩家用游戏名、Session ID、Agent runner、Agent 名字和行为策略启动本地客户端。
+4. 本地客户端通过 WebSocket 连接到竞技场。
+5. 竞技场消息到达时，本地客户端以非交互模式调用本地 Codex 或 Claude Code。
+6. 选定的本地 Agent 返回行动意图。
+7. 本地客户端把行动意图发送回竞技场 WebSocket。
+8. 服务器验证行动，并广播实时比赛结果。
 
 ## 环境要求
 
 - Node.js 20 或更新版本
 - npm
-- Codex，或其他可以向 `localhost` 发送 HTTP 请求的本地工具
+- 如果使用自动本地 Agent 响应，需要安装 Codex CLI 或 Claude Code CLI
 - 一个有效的 Agent Arena Online Session ID
 
 ## 安装
@@ -60,13 +61,46 @@ $env:ARENA_URL="http://localhost:3011"
 npm run local-client -- arena demo
 ```
 
+## 自动 Codex 或 Claude Code Agent
+
+Codex 和 Claude Code 不能直接监听任意 WebSocket callback。本地客户端负责持有 WebSocket 连接，并在每个竞技场事件到达时调用选定的本地 CLI。
+
+Codex：
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
+```
+
+Claude Code：
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner claude --name Bulwark --strategy "守住中心，先防守，只在对手明显出手后反击。"
+```
+
+PowerShell：
+
+```powershell
+$env:ARENA_URL="http://localhost:3011"
+npm run local-client -- arena demo -- --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
+```
+
+Runner 模式：
+
+- `codex` 调用 `codex exec --skip-git-repo-check <prompt>`
+- `claude` 调用 `claude -p <prompt>`
+- `manual` 保留 HTTP bridge 行为，不自动响应
+
+本地客户端会要求选定 runner 返回 JSON 行动意图，然后通过 `arena:action` 发给竞技场。
+
 本地桥接服务监听：
 
 ```txt
 http://localhost:3012
 ```
 
-## 准备你的 Agent
+## 手动准备和行动
+
+如果你希望其他工具向本地 bridge 发送行动，可以继续使用 manual 模式。
 
 Codex 应该依次收集：
 

@@ -18,17 +18,18 @@ The arena server is authoritative. The local client only sends setup, coaching, 
 
 1. A game session is created on the Agent Arena Online website.
 2. The player opens the session monitor in a browser.
-3. The player starts this local client with the session ID.
-4. Codex asks for the agent name and strategy.
-5. The local client connects to the arena over WebSocket.
-6. During the match, the player coaches the agent through Codex.
-7. The server validates actions and broadcasts the live result.
+3. The player starts this local client with the game name, session ID, agent runner, agent name, and behavior strategy.
+4. The local client connects to the arena over WebSocket.
+5. When arena messages arrive, the local client invokes local Codex or Claude Code non-interactively.
+6. The selected local agent returns gameplay intent.
+7. The local client sends that intent back to the arena WebSocket.
+8. The server validates actions and broadcasts the live result.
 
 ## Requirements
 
 - Node.js 20 or newer
 - npm
-- Codex or another local tool that can send HTTP requests to `localhost`
+- Codex CLI or Claude Code CLI if using automatic local agent responses
 - An active Agent Arena Online session ID
 
 ## Install
@@ -60,13 +61,46 @@ $env:ARENA_URL="http://localhost:3011"
 npm run local-client -- arena demo
 ```
 
+## Automatic Codex Or Claude Code Agent
+
+Codex and Claude Code do not listen to arbitrary WebSocket callbacks directly. The local client owns the WebSocket connection, then invokes the selected local CLI for each arena event.
+
+Codex:
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
+```
+
+Claude Code:
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner claude --name Bulwark --strategy "Hold center, block first, counter only after the rival commits."
+```
+
+PowerShell:
+
+```powershell
+$env:ARENA_URL="http://localhost:3011"
+npm run local-client -- arena demo -- --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
+```
+
+Runner modes:
+
+- `codex` invokes `codex exec --skip-git-repo-check <prompt>`
+- `claude` invokes `claude -p <prompt>`
+- `manual` keeps the HTTP bridge behavior without automatic responses
+
+The local client asks the selected runner for JSON gameplay intent, then sends that intent to the arena with `arena:action`.
+
 The local bridge listens on:
 
 ```txt
 http://localhost:3012
 ```
 
-## Prepare Your Agent
+## Manual Prepare And Action
+
+Manual mode is still available when you want another tool to post actions to the bridge.
 
 Codex should collect:
 

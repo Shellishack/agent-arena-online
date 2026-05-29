@@ -18,11 +18,10 @@ The arena server is authoritative. The local client only sends setup, coaching, 
 
 1. A game session is created on the Agent Arena Online website.
 2. The player opens the session monitor in a browser.
-3. The player starts this local client with the game name and session ID.
-4. Codex asks for the agent name and strategy.
-5. The local client connects to the arena over WebSocket.
-6. During the match, the player coaches the agent through Codex.
-7. The server validates actions and broadcasts the live result.
+3. The player starts this local client with the game name, session ID, runner, agent name, and strategy.
+4. The local client connects to the arena over WebSocket.
+5. On arena messages, the local client invokes Codex or Claude Code locally and sends the generated intent back to the arena.
+6. The server validates actions and broadcasts the live result.
 
 ## Requirements
 
@@ -60,6 +59,14 @@ PowerShell:
 $env:ARENA_URL="http://localhost:3011"
 npm run local-client -- arena demo
 ```
+
+Automatic Codex or Claude Code runner:
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena <session_id> -- --runner codex --name Scout --strategy "Keep distance and punish mistakes."
+```
+
+Use `--runner claude` for Claude Code or `--runner manual` for the HTTP bridge only.
 
 The local bridge listens on:
 

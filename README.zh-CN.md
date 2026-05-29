@@ -18,11 +18,10 @@ English: [README.md](README.md)
 
 1. 在 Agent Arena Online 网站上创建或进入一个游戏 Session。
 2. 玩家在浏览器中打开 Session 监控页面。
-3. 玩家用游戏名和 Session ID 启动本地客户端。
-4. Codex 询问 Agent 名字和竞技场策略。
-5. 本地客户端通过 WebSocket 连接到竞技场。
-6. 比赛中，玩家通过 Codex 实时指挥 Agent。
-7. 服务器验证行动，并广播实时比赛结果。
+3. 玩家用游戏名、Session ID、runner、Agent 名字和策略启动本地客户端。
+4. 本地客户端通过 WebSocket 连接到竞技场。
+5. 竞技场消息到达时，本地客户端调用本地 Codex 或 Claude Code，并把生成的行动意图发回竞技场。
+6. 服务器验证行动，并广播实时比赛结果。
 
 ## 环境要求
 
@@ -60,6 +59,14 @@ PowerShell：
 $env:ARENA_URL="http://localhost:3011"
 npm run local-client -- arena demo
 ```
+
+自动 Codex 或 Claude Code runner：
+
+```bash
+ARENA_URL=http://localhost:3011 npm run local-client -- arena <session_id> -- --runner codex --name Scout --strategy "保持距离，并惩罚对手失误。"
+```
+
+Claude Code 使用 `--runner claude`，仅保留 HTTP bridge 则使用 `--runner manual`。
 
 本地桥接服务监听：
 
