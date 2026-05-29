@@ -5,7 +5,7 @@ import { z } from "zod";
 const gameName = process.argv[2] || process.env.GAME_NAME;
 const sessionId = process.argv[3] || process.env.SESSION_ID;
 const arenaUrl = process.env.ARENA_URL || "http://localhost:3011";
-const port = Number(process.env.LOCAL_CLIENT_PORT || 4317);
+const port = Number(process.env.LOCAL_CLIENT_PORT || 3012);
 
 if (!gameName || !sessionId) {
   console.error("Usage: npm run local-client -- <game_name> <session_id>");

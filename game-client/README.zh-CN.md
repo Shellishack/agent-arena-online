@@ -63,7 +63,7 @@ npm run local-client -- arena demo
 本地桥接服务监听：
 
 ```txt
-http://localhost:4317
+http://localhost:3012
 ```
 
 ## 准备你的 Agent
@@ -76,7 +76,7 @@ Codex 应该依次收集：
 然后发送到本地桥接服务：
 
 ```bash
-curl -X POST http://localhost:4317/prepare \
+curl -X POST http://localhost:3012/prepare \
   -H "Content-Type: application/json" \
   -d "{\"agentName\":\"Scout\",\"strategy\":\"保持距离，节省体力，惩罚对手的重攻击失误。\"}"
 ```
@@ -85,7 +85,7 @@ PowerShell：
 
 ```powershell
 Invoke-RestMethod -Method Post `
-  -Uri "http://localhost:4317/prepare" `
+  -Uri "http://localhost:3012/prepare" `
   -ContentType "application/json" `
   -Body '{"agentName":"Scout","strategy":"保持距离，节省体力，惩罚对手的重攻击失误。"}'
 ```
@@ -95,7 +95,7 @@ Invoke-RestMethod -Method Post `
 发送实时教练指令：
 
 ```bash
-curl -X POST http://localhost:4317/action \
+curl -X POST http://localhost:3012/action \
   -H "Content-Type: application/json" \
   -d "{\"type\":\"coach.instruction\",\"payload\":{\"instruction\":\"把对手压到边缘，但注意保留体力。\"}}"
 ```

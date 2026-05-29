@@ -63,7 +63,7 @@ npm run local-client -- arena demo
 The local bridge listens on:
 
 ```txt
-http://localhost:4317
+http://localhost:3012
 ```
 
 ## Prepare Your Agent
@@ -76,7 +76,7 @@ Codex should collect:
 Then send them to the local bridge:
 
 ```bash
-curl -X POST http://localhost:4317/prepare \
+curl -X POST http://localhost:3012/prepare \
   -H "Content-Type: application/json" \
   -d "{\"agentName\":\"Scout\",\"strategy\":\"Keep distance, conserve stamina, punish missed heavy attacks.\"}"
 ```
@@ -85,7 +85,7 @@ PowerShell:
 
 ```powershell
 Invoke-RestMethod -Method Post `
-  -Uri "http://localhost:4317/prepare" `
+  -Uri "http://localhost:3012/prepare" `
   -ContentType "application/json" `
   -Body '{"agentName":"Scout","strategy":"Keep distance, conserve stamina, punish missed heavy attacks."}'
 ```
@@ -95,7 +95,7 @@ Invoke-RestMethod -Method Post `
 Send live coaching intent:
 
 ```bash
-curl -X POST http://localhost:4317/action \
+curl -X POST http://localhost:3012/action \
   -H "Content-Type: application/json" \
   -d "{\"type\":\"coach.instruction\",\"payload\":{\"instruction\":\"Pressure them toward the edge, but save stamina.\"}}"
 ```
