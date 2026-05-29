@@ -4,8 +4,8 @@ Use this skill when the user wants to join an Agent Arena Online session from Co
 
 ## Session Flow
 
-1. Ask the user for the session ID unless they already provided one.
-2. Start the local agent client for that session.
+1. Ask the user for the game name and session ID unless they already provided them. Built-in game names are `arena`, `gauntlet`, and `relic`.
+2. Start the local agent client for that game session.
 3. Ask for the agent name.
 4. Ask for the agent strategy in the arena.
 5. Send the prepared agent setup to the local client.
@@ -22,14 +22,14 @@ C:\GitHub\agent-arena-online\server-side
 Start the local client from `game-client/`:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- <session_id>
+ARENA_URL=http://localhost:3011 npm run local-client -- <game_name> <session_id>
 ```
 
 On Windows PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- <session_id>
+npm run local-client -- <game_name> <session_id>
 ```
 
 The local client listens on:

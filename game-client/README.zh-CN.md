@@ -42,20 +42,22 @@ npm install
 使用你的 Session ID 启动本地客户端：
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <session_id>
+ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
 ```
+
+内置游戏名为 `arena`、`gauntlet` 和 `relic`。
 
 本地开发：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- demo
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
 ```
 
 PowerShell：
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- demo
+npm run local-client -- arena demo
 ```
 
 本地桥接服务监听：

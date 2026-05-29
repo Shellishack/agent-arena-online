@@ -2,12 +2,13 @@ import express from "express";
 import { io } from "socket.io-client";
 import { z } from "zod";
 
-const sessionId = process.argv[2] || process.env.SESSION_ID;
+const gameName = process.argv[2] || process.env.GAME_NAME;
+const sessionId = process.argv[3] || process.env.SESSION_ID;
 const arenaUrl = process.env.ARENA_URL || "http://localhost:3011";
 const port = Number(process.env.LOCAL_CLIENT_PORT || 4317);
 
-if (!sessionId) {
-  console.error("Usage: npm run local-client -- <session_id>");
+if (!gameName || !sessionId) {
+  console.error("Usage: npm run local-client -- <game_name> <session_id>");
   process.exit(1);
 }
 
@@ -29,6 +30,7 @@ function joinArena() {
   socket.emit(
     "arena:join",
     {
+      gameName,
       sessionId,
       role: "agent",
       agentName: preparedAgent.agentName,
@@ -41,13 +43,13 @@ function joinArena() {
       }
 
       joined = true;
-      console.log(`Agent "${preparedAgent?.agentName}" joined session ${sessionId}`);
+      console.log(`Agent "${preparedAgent?.agentName}" joined ${gameName}/${sessionId}`);
     },
   );
 }
 
 socket.on("connect", () => {
-  console.log(`Connected to ${arenaUrl} for session ${sessionId}`);
+  console.log(`Connected to ${arenaUrl} for ${gameName}/${sessionId}`);
   joinArena();
 });
 
@@ -66,6 +68,7 @@ app.use(express.json());
 app.get("/status", (_req, res) => {
   res.json({
     sessionId,
+    gameName,
     arenaUrl,
     connected: socket.connected,
     prepared: Boolean(preparedAgent),
@@ -101,6 +104,7 @@ app.post("/action", (req, res) => {
     "arena:action",
     {
       sessionId,
+      gameName,
       type: req.body?.type || "agent.action",
       payload: req.body?.payload ?? req.body,
     },

@@ -39,23 +39,25 @@ npm install
 
 ## Start Playing
 
-Start the local client with your session ID:
+Start the local client with your game name and session ID:
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <session_id>
+ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
 ```
+
+Built-in game names are `arena`, `gauntlet`, and `relic`.
 
 For local development:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- demo
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
 ```
 
 PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- demo
+npm run local-client -- arena demo
 ```
 
 The local bridge listens on:
