@@ -1,0 +1,247 @@
+:root {
+  color-scheme: dark;
+  --bg: #111416;
+  --panel: #1a1f23;
+  --panel-2: #22282d;
+  --text: #eef3f1;
+  --muted: #9ba8a3;
+  --line: #333b40;
+  --green: #5be38a;
+  --blue: #68b7ff;
+  --red: #ff6a6a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.home,
+.monitorShell {
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.home {
+  display: grid;
+  place-items: center;
+}
+
+.homePanel {
+  width: min(520px, 100%);
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(40px, 7vw, 84px);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.joinForm {
+  display: flex;
+  gap: 10px;
+}
+
+.joinForm input,
+.joinForm button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 48px;
+}
+
+.joinForm input {
+  background: var(--panel);
+  color: var(--text);
+  flex: 1;
+  padding: 0 14px;
+}
+
+.joinForm button {
+  background: var(--blue);
+  color: #071018;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0 18px;
+}
+
+.monitorHeader {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.monitorHeader h1 {
+  margin-bottom: 0;
+}
+
+.status {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 800;
+  padding: 8px 14px;
+}
+
+.status.online {
+  border-color: rgba(91, 227, 138, 0.5);
+  color: var(--green);
+}
+
+.arenaGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.panelHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.panelHeader h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.panelHeader span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.agentList,
+.eventList {
+  display: grid;
+  gap: 10px;
+}
+
+.agentCard {
+  align-items: center;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+}
+
+.agentCard h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.agentCard p,
+.muted {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.dot {
+  background: var(--red);
+  border-radius: 50%;
+  flex: 0 0 auto;
+  height: 10px;
+  width: 10px;
+}
+
+.dot.connected {
+  background: var(--green);
+}
+
+.eventPanel {
+  min-height: 520px;
+}
+
+.eventList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eventList li {
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 4px;
+  padding: 12px 0;
+}
+
+.eventList time {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.eventList strong {
+  color: var(--blue);
+}
+
+.eventList p {
+  color: var(--text);
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+
+.emptyState {
+  margin: 20vh auto 0;
+  max-width: 620px;
+}
+
+@media (max-width: 800px) {
+  .home,
+  .monitorShell {
+    padding: 20px;
+  }
+
+  .joinForm,
+  .monitorHeader {
+    flex-direction: column;
+  }
+
+  .joinForm button {
+    width: 100%;
+  }
+
+  .arenaGrid {
+    grid-template-columns: 1fr;
+  }
+}
