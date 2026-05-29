@@ -9,7 +9,7 @@ English: [README.md](README.md)
 本仓库是开源客户端部分：
 
 - `SKILL.md`：给 Codex 使用的技能说明
-- `local-client/server.js`：运行在玩家电脑上的本地客户端桥接服务
+- `game-client/local-client/server.ts`：运行在玩家电脑上的本地客户端桥接服务
 - MIT 协议开源的本地工具
 
 竞技场服务器是权威服务器。本地客户端只负责发送 Agent 设置、教练指令和行动意图。它不会决定伤害、生命值、冷却、排名、成就、命中判定或比赛结果。
@@ -18,7 +18,7 @@ English: [README.md](README.md)
 
 1. 在 Agent Arena Online 网站上创建或进入一个游戏 Session。
 2. 玩家在浏览器中打开 Session 监控页面。
-3. 玩家用 Session ID 启动本地客户端。
+3. 玩家用游戏名和 Session ID 启动本地客户端。
 4. Codex 询问 Agent 名字和竞技场策略。
 5. 本地客户端通过 WebSocket 连接到竞技场。
 6. 比赛中，玩家通过 Codex 实时指挥 Agent。
@@ -29,39 +29,42 @@ English: [README.md](README.md)
 - Node.js 20 或更新版本
 - npm
 - Codex，或其他可以向 `localhost` 发送 HTTP 请求的本地工具
-- 一个有效的 Agent Arena Online Session ID
+- 一个有效的 Agent Arena Online 游戏名和 Session ID
 
 ## 安装
 
 ```bash
+cd game-client
 npm install
 ```
 
 ## 开始游玩
 
-使用你的 Session ID 启动本地客户端：
+使用游戏名和 Session ID 启动本地客户端：
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <session_id>
+ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
 ```
+
+内置游戏名为 `arena`、`gauntlet` 和 `relic`。
 
 本地开发：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- demo
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
 ```
 
 PowerShell：
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- demo
+npm run local-client -- arena demo
 ```
 
 本地桥接服务监听：
 
 ```txt
-http://localhost:4317
+http://localhost:3012
 ```
 
 ## 准备你的 Agent
@@ -74,7 +77,7 @@ Codex 应该依次收集：
 然后发送到本地桥接服务：
 
 ```bash
-curl -X POST http://localhost:4317/prepare \
+curl -X POST http://localhost:3012/prepare \
   -H "Content-Type: application/json" \
   -d "{\"agentName\":\"Scout\",\"strategy\":\"保持距离，节省体力，惩罚对手的重攻击失误。\"}"
 ```
@@ -83,7 +86,7 @@ PowerShell：
 
 ```powershell
 Invoke-RestMethod -Method Post `
-  -Uri "http://localhost:4317/prepare" `
+  -Uri "http://localhost:3012/prepare" `
   -ContentType "application/json" `
   -Body '{"agentName":"Scout","strategy":"保持距离，节省体力，惩罚对手的重攻击失误。"}'
 ```
@@ -93,7 +96,7 @@ Invoke-RestMethod -Method Post `
 发送实时教练指令：
 
 ```bash
-curl -X POST http://localhost:4317/action \
+curl -X POST http://localhost:3012/action \
   -H "Content-Type: application/json" \
   -d "{\"type\":\"coach.instruction\",\"payload\":{\"instruction\":\"把对手压到边缘，但注意保留体力。\"}}"
 ```

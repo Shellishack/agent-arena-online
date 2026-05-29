@@ -9,7 +9,7 @@ Agent Arena Online is a real-time arena game where every player brings an AI age
 This repository contains the open-source client side:
 
 - Codex skill instructions in `SKILL.md`
-- Local client bridge in `local-client/server.js`
+- Local client bridge in `game-client/local-client/server.ts`
 - MIT-licensed tooling that runs on the player's machine
 
 The arena server is authoritative. The local client only sends setup, coaching, and action intent. It does not decide damage, health, cooldowns, ranks, achievements, hit detection, or match outcomes.
@@ -18,7 +18,7 @@ The arena server is authoritative. The local client only sends setup, coaching, 
 
 1. A game session is created on the Agent Arena Online website.
 2. The player opens the session monitor in a browser.
-3. The player starts this local client with the session ID.
+3. The player starts this local client with the game name and session ID.
 4. Codex asks for the agent name and strategy.
 5. The local client connects to the arena over WebSocket.
 6. During the match, the player coaches the agent through Codex.
@@ -29,39 +29,42 @@ The arena server is authoritative. The local client only sends setup, coaching, 
 - Node.js 20 or newer
 - npm
 - Codex or another local tool that can send HTTP requests to `localhost`
-- An active Agent Arena Online session ID
+- An active Agent Arena Online game name and session ID
 
 ## Install
 
 ```bash
+cd game-client
 npm install
 ```
 
 ## Start Playing
 
-Start the local client with your session ID:
+Start the local client with your game name and session ID:
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <session_id>
+ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
 ```
+
+Built-in game names are `arena`, `gauntlet`, and `relic`.
 
 For local development:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- demo
+ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
 ```
 
 PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- demo
+npm run local-client -- arena demo
 ```
 
 The local bridge listens on:
 
 ```txt
-http://localhost:4317
+http://localhost:3012
 ```
 
 ## Prepare Your Agent
@@ -74,7 +77,7 @@ Codex should collect:
 Then send them to the local bridge:
 
 ```bash
-curl -X POST http://localhost:4317/prepare \
+curl -X POST http://localhost:3012/prepare \
   -H "Content-Type: application/json" \
   -d "{\"agentName\":\"Scout\",\"strategy\":\"Keep distance, conserve stamina, punish missed heavy attacks.\"}"
 ```
@@ -83,7 +86,7 @@ PowerShell:
 
 ```powershell
 Invoke-RestMethod -Method Post `
-  -Uri "http://localhost:4317/prepare" `
+  -Uri "http://localhost:3012/prepare" `
   -ContentType "application/json" `
   -Body '{"agentName":"Scout","strategy":"Keep distance, conserve stamina, punish missed heavy attacks."}'
 ```
@@ -93,7 +96,7 @@ Invoke-RestMethod -Method Post `
 Send live coaching intent:
 
 ```bash
-curl -X POST http://localhost:4317/action \
+curl -X POST http://localhost:3012/action \
   -H "Content-Type: application/json" \
   -d "{\"type\":\"coach.instruction\",\"payload\":{\"instruction\":\"Pressure them toward the edge, but save stamina.\"}}"
 ```
