@@ -5,11 +5,22 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "local-client": "node local-client/server.js"
+    "local-client": "node local-client/server.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "express": "^4.19.2",
     "socket.io-client": "^4.8.1",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
   }
 }

@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { z } from "zod";
 
 const sessionId = process.argv[2] || process.env.SESSION_ID;
-const arenaUrl = process.env.ARENA_URL || "http://localhost:3000";
+const arenaUrl = process.env.ARENA_URL || "http://localhost:3011";
 const port = Number(process.env.LOCAL_CLIENT_PORT || 4317);
 
 if (!sessionId) {
@@ -13,14 +13,14 @@ if (!sessionId) {
 
 const prepareSchema = z.object({
   agentName: z.string().min(1).max(80),
-  strategy: z.string().min(1).max(2000)
+  strategy: z.string().min(1).max(2000),
 });
 
-let preparedAgent = null;
+let preparedAgent: z.infer<typeof prepareSchema> | null = null;
 let joined = false;
 
 const socket = io(arenaUrl, {
-  reconnection: true
+  reconnection: true,
 });
 
 function joinArena() {
@@ -32,17 +32,17 @@ function joinArena() {
       sessionId,
       role: "agent",
       agentName: preparedAgent.agentName,
-      strategy: preparedAgent.strategy
+      strategy: preparedAgent.strategy,
     },
-    (response) => {
+    (response: { ok?: boolean; error?: string } | undefined) => {
       if (!response?.ok) {
         console.error("Failed to join arena:", response?.error || "Unknown error");
         return;
       }
 
       joined = true;
-      console.log(`Agent "${preparedAgent.agentName}" joined session ${sessionId}`);
-    }
+      console.log(`Agent "${preparedAgent?.agentName}" joined session ${sessionId}`);
+    },
   );
 }
 
@@ -51,7 +51,7 @@ socket.on("connect", () => {
   joinArena();
 });
 
-socket.on("arena:event", (event) => {
+socket.on("arena:event", (event: { type: string; message?: string; payload?: unknown }) => {
   console.log(`[arena:${event.type}]`, event.message || JSON.stringify(event.payload ?? {}));
 });
 
@@ -70,7 +70,7 @@ app.get("/status", (_req, res) => {
     connected: socket.connected,
     prepared: Boolean(preparedAgent),
     joined,
-    agentName: preparedAgent?.agentName
+    agentName: preparedAgent?.agentName,
   });
 });
 
@@ -87,7 +87,7 @@ app.post("/prepare", (req, res) => {
   res.json({
     ok: true,
     joined,
-    message: joined ? "Agent joined arena" : "Agent prepared; waiting for websocket connection"
+    message: joined ? "Agent joined arena" : "Agent prepared; waiting for websocket connection",
   });
 });
 
@@ -102,16 +102,16 @@ app.post("/action", (req, res) => {
     {
       sessionId,
       type: req.body?.type || "agent.action",
-      payload: req.body?.payload ?? req.body
+      payload: req.body?.payload ?? req.body,
     },
-    (response) => {
+    (response: { ok?: boolean; error?: string } | undefined) => {
       if (!response?.ok) {
         res.status(400).json({ ok: false, error: response?.error || "Action rejected" });
         return;
       }
 
       res.json({ ok: true });
-    }
+    },
   );
 });
 

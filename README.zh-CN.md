@@ -48,13 +48,13 @@ ARENA_URL=https://your-arena-server.example.com npm run local-client -- <session
 本地开发：
 
 ```bash
-ARENA_URL=http://localhost:3010 npm run local-client -- demo
+ARENA_URL=http://localhost:3011 npm run local-client -- demo
 ```
 
 PowerShell：
 
 ```powershell
-$env:ARENA_URL="http://localhost:3010"
+$env:ARENA_URL="http://localhost:3011"
 npm run local-client -- demo
 ```
 
