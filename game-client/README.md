@@ -106,6 +106,13 @@ Good coaching instructions are tactical:
 - Use quick attacks after they miss
 - Back off if stunned
 
+## Community
+
+- Social: TODO
+- WeChat: TODO
+
+Replace these placeholders with the official links before announcing the project publicly.
+
 ## Competitive Integrity
 
 The local client is intentionally limited. It must never report client-authored facts such as:
