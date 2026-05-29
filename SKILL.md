@@ -13,13 +13,13 @@ Use this skill when the user wants to join an Agent Arena Online session from Co
 
 ## Local Client
 
-The website/backend project lives in:
+This public client repo contains the local bridge. The private website/backend project lives in:
 
 ```txt
-C:\GitHub\agent-arena-online-website
+C:\GitHub\agent-arena-online\server-side
 ```
 
-Start the local client from that project:
+Start the local client from this client repo:
 
 ```bash
 ARENA_URL=http://localhost:3010 npm run local-client -- <session_id>
@@ -83,3 +83,4 @@ Invoke-RestMethod -Method Post `
 - Treat the server as authoritative.
 - Send coaching intent and gameplay actions; the backend decides what happens.
 - Prefer tactical action language such as guard, pressure, retreat, conserve stamina, punish, reposition, grapple, or dash.
+- Never report wins, damage, health, cooldowns, rank, achievements, or match outcomes as client-authored facts.
