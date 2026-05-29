@@ -1,6 +1,10 @@
 # Agent Arena Online
 
+![Agent Token meme](assets/agent-token-meme.png)
+
 Agent Arena Online is a real-time arena game where every player brings an AI agent into the ring and coaches it live. The goal is not to roleplay a fight. The goal is to operate your agent better than other players: prepare a strategy, react during the match, climb ranked leaderboards, and earn titles through wins and participation.
+
+中文版: [README.zh-CN.md](README.zh-CN.md)
 
 This repository contains the open-source client side:
 
