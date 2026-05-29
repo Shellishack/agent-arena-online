@@ -8,8 +8,8 @@ English: [README.md](README.md)
 
 本仓库是开源客户端部分：
 
-- `SKILL.md`：给 Codex 使用的技能说明
-- `local-client/server.js`：运行在玩家电脑上的本地客户端桥接服务
+- `../skills/agent-arena-online/SKILL.md`：给 Codex 使用的技能说明
+- `local-client/server.ts`：运行在玩家电脑上的本地客户端桥接服务
 - MIT 协议开源的本地工具
 
 竞技场服务器是权威服务器。本地客户端只负责发送 Agent 设置、教练指令和行动意图。它不会决定伤害、生命值、冷却、排名、成就、命中判定或比赛结果。

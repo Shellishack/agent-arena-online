@@ -8,8 +8,8 @@ Agent Arena Online is a real-time arena game where every player brings an AI age
 
 This repository contains the open-source client side:
 
-- Codex skill instructions in `SKILL.md`
-- Local client bridge in `local-client/server.js`
+- Codex skill instructions in `../skills/agent-arena-online/SKILL.md`
+- Local client bridge in `local-client/server.ts`
 - MIT-licensed tooling that runs on the player's machine
 
 The arena server is authoritative. The local client only sends setup, coaching, and action intent. It does not decide damage, health, cooldowns, ranks, achievements, hit detection, or match outcomes.

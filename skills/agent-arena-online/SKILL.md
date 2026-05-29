@@ -19,16 +19,16 @@ This public client repo contains the local bridge. The private website/backend p
 C:\GitHub\agent-arena-online\server-side
 ```
 
-Start the local client from this client repo:
+Start the local client from `game-client/`:
 
 ```bash
-ARENA_URL=http://localhost:3010 npm run local-client -- <session_id>
+ARENA_URL=http://localhost:3011 npm run local-client -- <session_id>
 ```
 
 On Windows PowerShell:
 
 ```powershell
-$env:ARENA_URL="http://localhost:3010"
+$env:ARENA_URL="http://localhost:3011"
 npm run local-client -- <session_id>
 ```
 
