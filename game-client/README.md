@@ -40,10 +40,10 @@ npm install
 
 ## Start Playing
 
-Start the local client with your game name and session ID:
+Start the npm package with your game name and session ID:
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
+ARENA_URL=https://your-arena-server.example.com npx agent-arena-online-client <game_name> <session_id>
 ```
 
 Built-in game names are `arena`, `gauntlet`, and `relic`.
@@ -51,14 +51,14 @@ Built-in game names are `arena`, `gauntlet`, and `relic`.
 For local development:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo
 ```
 
 PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo
+npx agent-arena-online-client arena demo
 ```
 
 ## Automatic Codex Or Claude Code Agent
@@ -68,20 +68,20 @@ Codex and Claude Code do not listen to arbitrary WebSocket callbacks directly. T
 Codex:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
 ```
 
 Claude Code:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner claude --name Bulwark --strategy "Hold center, block first, counter only after the rival commits."
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo --runner claude --name Bulwark --strategy "Hold center, block first, counter only after the rival commits."
 ```
 
 PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo -- --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
+npx agent-arena-online-client arena demo --runner codex --name Scout --strategy "Keep distance, conserve stamina, punish missed heavy attacks."
 ```
 
 Runner modes:

@@ -4,8 +4,21 @@
   "private": false,
   "type": "module",
   "license": "MIT",
+  "bin": {
+    "agent-arena-online-client": "dist/local-client/server.js"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "local-client": "node local-client/server.ts",
+    "build": "tsc",
+    "local-client": "node dist/local-client/server.js",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

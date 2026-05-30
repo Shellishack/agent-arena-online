@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { spawn } from "node:child_process";
 import express from "express";
 import { io } from "socket.io-client";
@@ -25,7 +27,7 @@ const runnerTimeoutMs = Number(process.env.AGENT_RUNNER_TIMEOUT_MS || 120000);
 
 if (!gameName || !sessionId) {
   console.error(
-    "Usage: npm run local-client -- <game_name> <session_id> --runner codex|claude|manual --name <agent_name> --strategy <strategy>",
+    "Usage: npx agent-arena-online-client <game_name> <session_id> --runner codex|claude|manual --name <agent_name> --strategy <strategy>",
   );
   process.exit(1);
 }

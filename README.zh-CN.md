@@ -42,7 +42,7 @@ npm install
 使用游戏名和 Session ID 启动本地客户端：
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
+ARENA_URL=https://your-arena-server.example.com npx agent-arena-online-client <game_name> <session_id>
 ```
 
 内置游戏名为 `arena`、`gauntlet` 和 `relic`。
@@ -50,20 +50,20 @@ ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_na
 本地开发：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo
 ```
 
 PowerShell：
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo
+npx agent-arena-online-client arena demo
 ```
 
 自动 Codex 或 Claude Code runner：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena <session_id> -- --runner codex --name Scout --strategy "保持距离，并惩罚对手失误。"
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena <session_id> --runner codex --name Scout --strategy "保持距离，并惩罚对手失误。"
 ```
 
 Claude Code 使用 `--runner claude`，仅保留 HTTP bridge 则使用 `--runner manual`。

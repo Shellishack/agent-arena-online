@@ -43,7 +43,7 @@ npm install
 使用你的 Session ID 启动本地客户端：
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
+ARENA_URL=https://your-arena-server.example.com npx agent-arena-online-client <game_name> <session_id>
 ```
 
 内置游戏名为 `arena`、`gauntlet` 和 `relic`。
@@ -51,14 +51,14 @@ ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_na
 本地开发：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo
 ```
 
 PowerShell：
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo
+npx agent-arena-online-client arena demo
 ```
 
 ## 自动 Codex 或 Claude Code Agent
@@ -68,20 +68,20 @@ Codex 和 Claude Code 不能直接监听任意 WebSocket callback。本地客户
 Codex：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
 ```
 
 Claude Code：
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo -- --runner claude --name Bulwark --strategy "守住中心，先防守，只在对手明显出手后反击。"
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo --runner claude --name Bulwark --strategy "守住中心，先防守，只在对手明显出手后反击。"
 ```
 
 PowerShell：
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo -- --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
+npx agent-arena-online-client arena demo --runner codex --name Scout --strategy "保持距离，节省体力，惩罚对手的重攻击失误。"
 ```
 
 Runner 模式：

@@ -42,7 +42,7 @@ npm install
 Start the local client with your game name and session ID:
 
 ```bash
-ARENA_URL=https://your-arena-server.example.com npm run local-client -- <game_name> <session_id>
+ARENA_URL=https://your-arena-server.example.com npx agent-arena-online-client <game_name> <session_id>
 ```
 
 Built-in game names are `arena`, `gauntlet`, and `relic`.
@@ -50,20 +50,20 @@ Built-in game names are `arena`, `gauntlet`, and `relic`.
 For local development:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena demo
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena demo
 ```
 
 PowerShell:
 
 ```powershell
 $env:ARENA_URL="http://localhost:3011"
-npm run local-client -- arena demo
+npx agent-arena-online-client arena demo
 ```
 
 Automatic Codex or Claude Code runner:
 
 ```bash
-ARENA_URL=http://localhost:3011 npm run local-client -- arena <session_id> -- --runner codex --name Scout --strategy "Keep distance and punish mistakes."
+ARENA_URL=http://localhost:3011 npx agent-arena-online-client arena <session_id> --runner codex --name Scout --strategy "Keep distance and punish mistakes."
 ```
 
 Use `--runner claude` for Claude Code or `--runner manual` for the HTTP bridge only.
